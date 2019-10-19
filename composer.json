@@ -1,0 +1,44 @@
+{
+    "name": "denis-kisel/laravel-phantomjs-curl",
+    "description": "A phantomjsCURL for get content of difficult sites",
+    "license": "MIT",
+    "keywords": [
+        "phantomjs",
+        "laravel",
+        "curl"
+    ],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Denis Kisel",
+            "email": "denis.kisel92@gmail.com",
+            "homepage": "http://digital-elephant.com.ua"
+        }
+    ],
+    "homepage": "https://github.com/denis-kisel/laravel-phantomjs-curl",
+    "require": {
+        "php": ">=7.2",
+        "illuminate/support": ">=5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DenisKisel\\PhantomCURL\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DenisKisel\\PhantomCURL\\ServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}

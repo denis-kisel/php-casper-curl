@@ -1,3 +1,6 @@
+# WARNING
+This package is in development mode
+
 # Casper CURL
 
 Basics on [casperjs](https://casperjs.org/) / [casperjs](http://casperjs.org/) libs for get content difficult sites.

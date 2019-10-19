@@ -32,7 +32,7 @@ Simple example
 $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')->request()
 ```
 
-#### Set Method
+### Set Method
 method($method)  
 Methods available: `GET|POST|PUT|DELETE`  
 By default use `GET`
@@ -43,7 +43,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
     ->request()
 ```
 
-#### Set Data
+### Set Data
 withData($arrayData)  
 
 ```php
@@ -56,7 +56,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
     ->request()
 ```
 
-#### Set Headers
+### Set Headers
 withHeaders($arrayHeaders)  
 
 ```php
@@ -68,7 +68,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
     ->request()
 ```
 
-#### Set UserAgent
+### Set UserAgent
 userAgent($userAgent)  
 By default use: Mozilla/5.0 (Windows NT 10.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
 
@@ -78,7 +78,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
     ->request()
 ```
 
-#### Use Proxy
+### Use Proxy
 withProxy($ip, $port \[, $method = 'http'] \[, $login = null] \[, $pass = null])
 
 Methods available: `http|socks5|none`
@@ -89,7 +89,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
     ->request()
 ```
 
-#### Use Cookies
+### Use Cookies
 withCookie($isEnable \[, $filePath])  
 By default cookie is `disabled`.  
 By default cookies file is stored in storage dir.
@@ -100,7 +100,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
     ->request()
 ```
 
-#### Use WindowSize(ViewPort)
+### Use WindowSize(ViewPort)
 windowSize($with, $height)  
 By default: width/height: `1920/1080` px
 
@@ -115,7 +115,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
     ->request()
 ```
 
-#### Phantom Cli Options
+### Phantom Cli Options
 Set custom phantom cli options  
 List of available options: [Phantom Options Doc](https://phantomjs.org/api/command-line.html)
 

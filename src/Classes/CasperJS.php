@@ -11,7 +11,7 @@ class CasperJS
     protected $url = null;
     protected $httpMethod = null;
     protected $data = null;
-    protected $headers = null;
+    protected $headers = [];
 
     /** @var StubJSCopyist */
     protected $stubJSCopyist = null;
@@ -37,7 +37,7 @@ class CasperJS
 
     public function setHeaders($headers)
     {
-        $this->headers = $headers;
+        array_push($this->headers, $headers);
     }
 
     public function getHttpMethod()
@@ -63,7 +63,7 @@ class CasperJS
     public function renderHeaders()
     {
 
-        if (is_null($this->headers)) {
+        if (!$this->headers) {
             return '';
         }
 

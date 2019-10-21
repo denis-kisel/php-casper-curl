@@ -53,6 +53,12 @@ class Builder
         return $this;
     }
 
+    public function userAgent(String $agent)
+    {
+        $this->casperJS->setHeaders(['User-Agent' => $agent]);
+        return $this;
+    }
+
     public function withProxy($ip, $port, $schema = 'http://', $login = null, $password = null)
     {
         $this->proxy = new Proxy($ip, $port, $schema, $login, $password);

@@ -106,12 +106,7 @@ By default: width/height: `1920/1080` px
 
 ```php
 $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
-    ->windowSize(1200, 900)
-    ->request()
-    
-//OR
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
-    ->viewPort(1200, 900) //its the same as windowSize
+    ->windowSize(320, 600)
     ->request()
 ```
 

@@ -6,10 +6,11 @@ namespace DenisKisel\CasperCURL\Classes;
 
 use DenisKisel\CasperCURL\Exceptions\CasperCURLException;
 
-class CliOptionRegister
+class CliPhantomOptions
 {
     const OPTION_PREFIX = '--';
     const AVAILABLE = [
+        'help', 'version',
         'debug', 'config', 'cookies-file',
         'disk-cache', 'disk-cache-path',
         'ignore-ssl-errors', 'load-images',

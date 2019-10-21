@@ -57,7 +57,7 @@ class Builder
             $options['proxy-auth'] = "{$login}:{$password}";
         }
 
-        $this->casperJS->cliOptionRegister->add($options);
+        $this->casperJS->cliPhantomOptions->add($options);
         return $this;
     }
 
@@ -67,7 +67,7 @@ class Builder
         if (empty($dir)) {
             $filePath = Config::$storageDir . $fileName;
         }
-        $this->casperJS->cliOptionRegister->add(['cookies-file' => $filePath]);
+        $this->casperJS->cliPhantomOptions->add(['cookies-file' => $filePath]);
         return $this;
     }
 
@@ -75,6 +75,12 @@ class Builder
     {
         $this->casperJS->windowSize->width = $width;
         $this->casperJS->windowSize->height = $height;
+        return $this;
+    }
+
+    public function withPhantomOptions($options)
+    {
+        $this->casperJS->cliPhantomOptions->add($options);
         return $this;
     }
 

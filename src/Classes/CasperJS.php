@@ -23,12 +23,16 @@ class CasperJS
     /** @var CliOptionRegister */
     public $cliOptionRegister = null;
 
+    /** @var WindowSize */
+    public $windowSize = null;
+
     public function __construct($url)
     {
         $this->url = $url;
         $this->httpMethod = HttpMethod::DEFAULT;
         $this->stubJSCopyist = new StubJSCopyist(Config::$storageDir);
         $this->cliOptionRegister = new CliOptionRegister();
+        $this->windowSize = new WindowSize();
     }
 
 
@@ -86,7 +90,7 @@ class CasperJS
 
     public function renderOptions()
     {
-
+        return '';
     }
 
     public function generate()
@@ -97,7 +101,8 @@ class CasperJS
         $content = str_replace('{httpMethod}', $this->getHttpMethod(), $content);
         $content = str_replace('{data}', $this->renderData(), $content);
         $content = str_replace('{headers}', $this->renderHeaders(), $content);
-        $content = str_replace('{options}', '', $content);
+        $content = str_replace('{options}', $this->renderOptions(), $content);
+        $content = str_replace('{windowSize}', $this->windowSize->render(), $content);
         $content = str_replace('{body}', '', $content);
 
         file_put_contents($this->stubJSCopyist->storageFilePath(), $content);

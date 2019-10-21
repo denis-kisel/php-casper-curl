@@ -9,18 +9,11 @@ class Builder
      * @var null|CasperJS
      */
     protected $casperJS = null;
-
-    /**
-     * @var null|WindowSize
-     */
-    public $windowSize = null;
-
     protected $isDebug = false;
 
 
     public function __construct(String $storagePath)
     {
-        $this->windowSize = new WindowSize();
         Config::$storageDir = $storagePath;
     }
 
@@ -80,8 +73,8 @@ class Builder
 
     public function windowSize($width, $height)
     {
-        $this->windowSize->width = $width;
-        $this->windowSize->height = $height;
+        $this->casperJS->windowSize->width = $width;
+        $this->casperJS->windowSize->height = $height;
         return $this;
     }
 

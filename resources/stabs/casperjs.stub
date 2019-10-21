@@ -1,0 +1,19 @@
+var casper = require('casper').create();
+var output = '';
+
+{options}
+
+casper.options.pageSettings.userAgent = 'Mozilla/5.0 (Windows NT 10.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36';
+casper.options.pageSettings.javascriptEnabled = true;
+casper.options.pageSettings.loadImages = false;
+casper.options.viewportSize = {width: 1920, height: 1080};
+
+casper.start('{url}');
+
+{body}
+
+casper.run(function () {
+    console.log(output);
+    this.debugPage();
+    this.exit();
+});

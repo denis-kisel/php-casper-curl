@@ -1,14 +1,6 @@
 <?php
+require_once __DIR__ . '/../../../../vendor/autoload.php';
 
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Http\Request;
-
-require_once '../../../../vendor/autoload.php';
-$app = require_once '../../../../bootstrap/app.php';
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
-$response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-);
-
-print(\DenisKisel\PhantomCURL\CasperCurl::to('https://amazon.com')->get());
+$storageDir = __DIR__ . '/../../../../storage/app/casperCURL/';
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+print($casperCURL->to('https://amazon.com')->request());

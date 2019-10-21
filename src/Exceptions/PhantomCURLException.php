@@ -1,10 +1,10 @@
 <?php
 
 
-namespace DenisKisel\PhantomCURL\Exceptions;
+namespace DenisKisel\CasperCURL\Exceptions;
 
 
-class PhantomCURLException extends \Exception
+class CasperCURLException extends \Exception
 {
 
 }

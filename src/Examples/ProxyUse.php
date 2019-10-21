@@ -11,4 +11,4 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
-\DenisKisel\PhantomCURL\CasperCurl::to('google.com')->withProxy('123.1245.532.12', '80', 'http', 'test', 'test')->get();
+\DenisKisel\CasperCURL\CasperCURL::to('google.com')->withProxy('123.1245.532.12', '80', 'http', 'test', 'test')->get();

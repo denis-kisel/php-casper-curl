@@ -4,13 +4,13 @@ namespace DenisKisel\CasperCurl;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    const CONFIG_PATH = __DIR__ . '/../config/phantom_curl.php';
+    const CONFIG_PATH = __DIR__ . '/../config/casper_curl.php';
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'phantom_curl');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'casper_curl');
         $this->publishes([
-            self::CONFIG_PATH => config_path('phantom_curl.php'),
+            self::CONFIG_PATH => config_path('casper_curl.php'),
         ], 'config');
     }
 
@@ -18,7 +18,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->mergeConfigFrom(
             self::CONFIG_PATH,
-            'phantom_curl'
+            'casper_curl'
         );
     }
 }

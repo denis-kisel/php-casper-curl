@@ -11,4 +11,4 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
-\DenisKisel\PhantomCURL\CasperCurl::to('google.com')->windowSize(2000, 1028)->get();
+\DenisKisel\CasperCURL\CasperCURL::to('google.com')->windowSize(2000, 1028)->get();

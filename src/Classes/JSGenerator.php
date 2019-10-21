@@ -1,11 +1,11 @@
 <?php
 
 
-namespace DenisKisel\PhantomCURL\Classes;
+namespace DenisKisel\CasperCURL\Classes;
 
 
-use DenisKisel\PhantomCURL\Exceptions\PhantomCURLException;
-use Illuminate\Support\Facades\File;
+use DenisKisel\CasperCURL\Exceptions\CasperCURLException;
+use DenisKisel\CasperCURL\Helpers\StringHelper;
 
 class JSGenerator
 {
@@ -25,33 +25,29 @@ class JSGenerator
         }
 
         if (!is_dir($storageDirPath)) {
-            throw new PhantomCURLException("Storage dir is not created! [{$storageDirPath}]");
+            throw new CasperCURLException("Storage dir is not created! [{$storageDirPath}]");
         }
         $this->storageDirPath = $storageDirPath;
         $this->builder = $builder;
     }
 
-    public function loadBuilder(Builder $builder)
-    {
-        $this->builder = $builder;
-    }
-
     public function generate()
     {
-        $content = view('phantom_curl::url-js', [
-            'url' => $this->builder->url,
-            'proxy' => $this->builder->proxy,
-            'windowSize' => $this->builder->windowSize
-        ]);
+        copy(__DIR__ . '/../../resources/stabs/casperjs.stub', $this->storageFilePath());
 
-        File::put($this->storageFilePath(), $content);
+        $content = file_get_contents($this->storageFilePath());
+        $content = str_replace('{url}', $this->builder->url, $content);
+        $content = str_replace('{options}', '', $content);
+        $content = str_replace('{body}', '', $content);
+
+        file_put_contents($this->storageFilePath(), $content);
     }
 
     public function storageFileName()
     {
         if (is_null($this->storageFileName)) {
             $fileName = str_replace('{datetime}', date('YmdHis'), $this->storageFileTemplate);
-            $fileName = str_replace('{token}', bin2hex(random_bytes(6)), $fileName);
+            $fileName = str_replace('{token}', StringHelper::random(6), $fileName);
             $this->storageFileName = $fileName;
         }
         return $this->storageFileName;

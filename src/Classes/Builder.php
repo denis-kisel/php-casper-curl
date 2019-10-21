@@ -1,17 +1,15 @@
 <?php
 
 
-namespace DenisKisel\PhantomCURL\Classes;
+namespace DenisKisel\CasperCURL\Classes;
 
-
-use DenisKisel\PhantomCURL\Exceptions\PhantomCURLException;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
+use DenisKisel\CasperCURL\Helpers\StringHelper;
 
 class Builder
 {
     public $url = null;
     public $httpMethod = 'GET';
+    protected $storagePath = null;
 
     /**
      * @var null|Proxy
@@ -33,6 +31,7 @@ class Builder
     {
         $this->JSGenerator = new JSGenerator($storagePath, $this);
         $this->windowSize = new WindowSize();
+        $this->storagePath = $storagePath;
     }
 
     public function to($url)
@@ -55,13 +54,13 @@ class Builder
         return $this;
     }
 
-    protected function send()
+    public function request()
     {
         $this->JSGenerator->generate();
 
-        $filePath = config('phantom_curl.storage_path') . '/' . Str::random(32);
-        exec(config('phantom_curl.phantomjs_bin') . ' ' . $this->JSGenerator->storageFilePath() . ' >> ' . $filePath);
-        $result = File::get($filePath);
+        $filePath = $this->storagePath . '/' . StringHelper::random(32);
+        exec('casperjs ' . $this->JSGenerator->storageFilePath() . ' >> ' . $filePath);
+        $result = file_get_contents($filePath);
 
         unlink($filePath);
         unlink($this->JSGenerator->storageFilePath());
@@ -91,31 +90,5 @@ class Builder
 //    public function withHeaders(Array $headers)
 //    {
 //        return $this;
-//    }
-
-    //HTTP METHODS
-    public function get()
-    {
-        return $this->send();
-    }
-
-//    public function post()
-//    {
-//        return $this->send();
-//    }
-//
-//    public function patch()
-//    {
-//        return $this->send();
-//    }
-//
-//    public function put()
-//    {
-//        return $this->send();
-//    }
-//
-//    public function delete()
-//    {
-//        return $this->send();
 //    }
 }

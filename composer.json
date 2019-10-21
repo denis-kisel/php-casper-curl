@@ -1,5 +1,5 @@
 {
-    "name": "denis-kisel/laravel-phantomjs-curl",
+    "name": "denis-kisel/casper-curl",
     "description": "A phantomjsCURL for get content of difficult sites",
     "license": "MIT",
     "keywords": [
@@ -15,7 +15,7 @@
             "homepage": "http://digital-elephant.com.ua"
         }
     ],
-    "homepage": "https://github.com/denis-kisel/laravel-phantomjs-curl",
+    "homepage": "https://github.com/denis-kisel/php-casper-curl",
     "require": {
         "php": ">=7.2",
         "illuminate/support": ">=5.0"
@@ -26,13 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "DenisKisel\\PhantomCURL\\": "src"
+            "DenisKisel\\CasperCURL\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "DenisKisel\\PhantomCURL\\ServiceProvider"
+                "DenisKisel\\CasperCURL\\ServiceProvider"
             ]
         }
     },

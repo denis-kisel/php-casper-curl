@@ -1,7 +1,7 @@
 <?php
 
 
-namespace DenisKisel\PhantomCURL\Classes;
+namespace DenisKisel\CasperCURL\Classes;
 
 
 class WindowSize

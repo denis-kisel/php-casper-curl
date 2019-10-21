@@ -15,8 +15,8 @@ npm install -g phantomjs
 composer require denis-kisel/casper-curl
 ```
 
-### Publish Configuration File
-
+### Publish Configuration File(If Use Laravel)
+If you use another framework or native PHP, just skip this setting.
 ```bash
 php artisan vendor:publish --provider="DenisKisel\CasperCURL\ServiceProvider" --tag="config"
 ```
@@ -26,7 +26,8 @@ Simple example
 
 ```php
 //Return content page
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')->request()
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')->request()
 ```
 
 ### Set Method
@@ -35,7 +36,8 @@ Methods available: `GET|POST|PUT|DELETE`
 By default use `GET`
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->method('POST')
     ->request()
 ```
@@ -44,7 +46,8 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
 withData($arrayData)  
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->withData([
         'login' => '***',
         'pass' => '***'
@@ -57,7 +60,8 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
 withHeaders($arrayHeaders)  
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->withHeaders([
         'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0',
         'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -70,7 +74,8 @@ userAgent($userAgent)
 By default use: Mozilla/5.0 (Windows NT 10.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->userAgent('Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0')
     ->request()
 ```
@@ -81,7 +86,8 @@ withProxy($ip, $port \[, $method = 'http'] \[, $login = null] \[, $pass = null])
 Methods available: `http|socks5|none`
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->withProxy($ip, $port)
     ->request()
 ```
@@ -92,7 +98,8 @@ By default cookie is `disabled`.
 By default cookies file is stored in storage dir.
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->withCookie(true)
     ->request()
 ```
@@ -102,7 +109,8 @@ windowSize($with, $height)
 By default: width/height: `1920/1080` px
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->windowSize(320, 600)
     ->request()
 ```
@@ -120,7 +128,8 @@ $options = [
     'ignore-ssl-errors' => 'true'
 ];
 
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('https://google.com')
     ->withPhantomOptions($options)
     ->request()
 ```
@@ -134,7 +143,8 @@ casperThen($jsScript)
 [DOC](http://docs.casperjs.org/en/latest/modules/casper.html#then)
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.fr')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('http://google.fr')
     ->casperThen('
          this.fill('form[action="/search"]', { q: 'casperjs' }, true);
          this.wait(2000, function () {
@@ -150,7 +160,8 @@ Custom casper body js
 [DOC](http://docs.casperjs.org/en/1.1-beta2/index.html)
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.fr')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('http://google.fr')
     ->customCasper('
         casper.then(function() {
              this.fill('form[action="/search"]', { q: 'casperjs' }, true);
@@ -167,7 +178,8 @@ enableDebug()
 Will be store response data and capture in storage dir
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('http://google.com')
     ->enableDebug()
     ->request()
 ```
@@ -178,7 +190,8 @@ Response is object with fields:
 * content (string html|dom|txt)
 
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.com')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('http://google.com')
     ->request();
     
 $response->status;
@@ -190,8 +203,10 @@ By default request response full page content
 [DOC](http://docs.casperjs.org/en/latest/modules/casper.html#getpagecontent)
 
 But response can override by `output` variable
+
 ```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.fr')
+$casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
+$response = $casperCURL->to('http://google.fr')
     ->casperThen('
          this.fill('form[action="/search"]', { q: 'casperjs' }, true);
          this.wait(2000, function () {
@@ -203,6 +218,11 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.fr')
     ->request()
 ```
 
+## Use In Laravel
+
+```php
+$response = \DenisKisel\CasperCURL\LCasperCURL::to('https://google.com')->request()
+```
 
 ## License
 This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT)

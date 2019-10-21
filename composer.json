@@ -4,6 +4,8 @@
     "license": "MIT",
     "keywords": [
         "phantomjs",
+        "casperjs",
+        "php",
         "laravel",
         "curl"
     ],
@@ -20,10 +22,6 @@
         "php": ">=7.2",
         "ext-json": "*",
         "rap2hpoutre/similar-text-finder": "^1.1"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "phpunit/phpunit": "^8.0"
     },
     "autoload": {
         "psr-4": {

@@ -1,16 +1,13 @@
-# WARNING
-This package is in development mode
-
 # Casper CURL
 
-Basics on [casperjs](https://casperjs.org/) / [casperjs](http://casperjs.org/) libs for get content difficult sites.
+Basics on [casperjs](https://casperjs.org/) / [phantomjs](https://phantomjs.org/) libs for get content difficult sites.
 
 ## Installation
 
-1 Install global casperjs and casperjs
+1 Install global casperjs and phantomjs
 ```bash
 npm install -g casperjs
-npm install -g casperjs
+npm install -g phantomjs
 ```
 
 2 Install CasperCURL package

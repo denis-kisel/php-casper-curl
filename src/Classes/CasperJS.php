@@ -13,6 +13,7 @@ class CasperJS
     protected $data = null;
     protected $headers = [];
     protected $options = [];
+    protected $body = '';
 
     /** @var StubJSCopyist */
     protected $stubJSCopyist = null;
@@ -35,7 +36,6 @@ class CasperJS
         $this->windowSize = new WindowSize();
     }
 
-
     public function setHttpMethod($method)
     {
         HttpMethod::validate($method);
@@ -55,6 +55,21 @@ class CasperJS
     public function addOptions($options)
     {
         array_merge($this->options, $options);
+    }
+
+    public function addBody($script)
+    {
+        $this->body .= $script . PHP_EOL;
+    }
+
+    public function then($script)
+    {
+        $output = <<<EOF
+    casper.then(function () {
+        {$script}
+    });
+EOF;
+        $this->addBody($output);
     }
 
     public function getHttpMethod()
@@ -93,6 +108,11 @@ class CasperJS
         return '';
     }
 
+    public function renderBody()
+    {
+        return $this->body;
+    }
+
     public function generate()
     {
         $this->stubJSCopyist->copy();
@@ -103,7 +123,7 @@ class CasperJS
         $content = str_replace('{headers}', $this->renderHeaders(), $content);
         $content = str_replace('{options}', $this->renderOptions(), $content);
         $content = str_replace('{windowSize}', $this->windowSize->render(), $content);
-        $content = str_replace('{body}', '', $content);
+        $content = str_replace('{body}', $this->renderBody(), $content);
 
         file_put_contents($this->stubJSCopyist->storageFilePath(), $content);
         return $this->stubJSCopyist->storageFilePath();

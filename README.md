@@ -132,25 +132,6 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
 For use dynamic handling content  
 [Casper Doc](http://casperjs.org/)
 
-### Simple Command with CasperJS
-casperJs($callback)  
-Callback contain param with type `CasperJS`  
-  
-CasperJS::evaluate($jsScript)  
-CasperJS::click($selector)  
-CasperJS::wait($timeMCSec, $jsScript)  
-CasperJS::waitWhileVisible($selector, $jsScript)  
-CasperJS::waitUntilVisible($selector, $jsScript)  
-CasperJS::capture($pathToSave)  
-
-```php
-$response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.fr')
-    ->casperJs(function(CasperJS $casper) {
-        $casper->evaluate("document.querySelector('.gLFyf').value = 'search text';");
-    })
-    ->request()
-```
-
 ### Use Casper Then
 casperThen($jsScript)  
 [DOC](http://docs.casperjs.org/en/latest/modules/casper.html#then)

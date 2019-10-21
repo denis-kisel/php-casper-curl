@@ -84,6 +84,18 @@ class Builder
         return $this;
     }
 
+    public function casperThen($script)
+    {
+        $this->casperJS->then($script);
+        return $this;
+    }
+
+    public function customCasper($script)
+    {
+        $this->casperJS->addBody($script);
+        return $this;
+    }
+
     public function request()
     {
         $this->casperJS->generate();

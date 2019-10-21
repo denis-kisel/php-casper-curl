@@ -187,3 +187,31 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.com')
 $response->status;
 $response->content;
 ```
+
+### Response Content
+By default request response full page content  
+[DOC](http://docs.casperjs.org/en/latest/modules/casper.html#getpagecontent)
+
+But response can override by `output` variable
+```php
+$response = \DenisKisel\CasperCURL\CasperCURL::to('http://google.fr')
+    ->casperThen('
+         this.fill('form[action="/search"]', { q: 'casperjs' }, true);
+         this.wait(2000, function () {
+             this.capture('step_1.png');
+         });
+         
+         output = console.log('Override default output!');
+    ')
+    ->request()
+```
+
+
+## License
+This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT)
+
+## Contact
+Developer: Denis Kisel
+* Email: denis.kisel92@gmail.com
+* Skype: live:denis.kisel92
+

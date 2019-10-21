@@ -18,7 +18,13 @@ casper.start('{url}', {
 {body}
 
 casper.run(function () {
-    console.log(output);
+    console.log('{STATUS:' + this.currentHTTPStatus + ':STATUS}');
+
+    if (output) {
+        console.log(output);
+    } else {
+        console.log(this.getPageContent());
+    }
     this.debugPage();
     this.exit();
 });

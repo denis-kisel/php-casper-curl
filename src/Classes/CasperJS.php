@@ -140,6 +140,6 @@ EOF;
             unlink($this->stubJSCopyist->storageFilePath());
         }
 
-        return $result;
+        return ResponseFormat::format($result);
     }
 }

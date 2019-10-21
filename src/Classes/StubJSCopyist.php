@@ -7,7 +7,7 @@ namespace DenisKisel\CasperCURL\Classes;
 use DenisKisel\CasperCURL\Exceptions\CasperCURLException;
 use DenisKisel\CasperCURL\Helpers\StringHelper;
 
-class JSGenerator
+class StubJSCopyist
 {
     protected $storageDirPath = null;
     protected $storageFileTemplate = 'phantom-curl_{datetime}_{token}.js';
@@ -26,19 +26,6 @@ class JSGenerator
         $this->storageDirPath = $storageDirPath;
     }
 
-    public function generate(CasperJSBuilder $builder)
-    {
-        copy(__DIR__ . '/../../resources/stabs/casperjs.stub', $this->storageFilePath());
-
-        $content = file_get_contents($this->storageFilePath());
-        $content = str_replace('{url}', $builder->getUrl(), $content);
-        $content = str_replace('{httpMethod}', $builder->getHttpMethod(), $content);
-        $content = str_replace('{options}', '', $content);
-        $content = str_replace('{body}', '', $content);
-
-        file_put_contents($this->storageFilePath(), $content);
-    }
-
     public function storageFileName()
     {
         if (is_null($this->storageFileName)) {
@@ -52,5 +39,11 @@ class JSGenerator
     public function storageFilePath()
     {
         return $this->storageDirPath . '/' . $this->storageFileName();
+    }
+
+    public function copy()
+    {
+        copy(__DIR__ . '/../../resources/stabs/casperjs.stub', $this->storageFilePath());
+        return $this->storageFilePath();
     }
 }

@@ -8,7 +8,11 @@ casper.options.pageSettings.javascriptEnabled = true;
 casper.options.pageSettings.loadImages = false;
 casper.options.viewportSize = {width: 1920, height: 1080};
 
-casper.start('{url}', '{httpMethod}');
+casper.start('{url}', {
+        method: '{httpMethod}',
+        data: {data}
+    }
+);
 
 {body}
 

@@ -3,51 +3,47 @@
 
 namespace DenisKisel\CasperCURL\Classes;
 
-use DenisKisel\CasperCURL\Helpers\StringHelper;
-
 class CasperCURLBuilder
 {
-    protected $storagePath = null;
-
     /**
      * @var null|Proxy
      */
     public $proxy = null;
 
     /**
-     * @var null|JSGenerator
+     * @var null|CasperJS
      */
-    protected $JSGenerator = null;
-
-    /**
-     * @var null|CasperJSBuilder
-     */
-    protected $casperJSBuilder = null;
+    protected $casperJS = null;
 
     /**
      * @var null|WindowSize
      */
     public $windowSize = null;
 
-    protected $enableDebug = false;
+    protected $isDebug = false;
 
 
-    public function __construct($storagePath)
+    public function __construct(String $storagePath)
     {
-        $this->JSGenerator = new JSGenerator($storagePath);
         $this->windowSize = new WindowSize();
-        $this->storagePath = $storagePath;
+        Config::$storageDir = $storagePath;
     }
 
-    public function to($url)
+    public function to(String $url)
     {
-        $this->casperJSBuilder = new CasperJSBuilder($url);
+        $this->casperJS = new CasperJS($url);
         return $this;
     }
 
-    public function method($method)
+    public function method(String $method)
     {
-        $this->casperJSBuilder->setHttpMethod($method);
+        $this->casperJS->setHttpMethod($method);
+        return $this;
+    }
+
+    public function withData(Array $data)
+    {
+        $this->casperJS->setData($data);
         return $this;
     }
 
@@ -66,46 +62,13 @@ class CasperCURLBuilder
 
     public function request()
     {
-        $this->JSGenerator->generate($this->casperJSBuilder);
-        $filePath = $this->storagePath . '/' . StringHelper::random(32);
-        exec('casperjs ' . $this->JSGenerator->storageFilePath() . ' >> ' . $filePath);
-        $result = file_get_contents($filePath);
-
-        if (!$this->enableDebug) {
-            unlink($filePath);
-            unlink($this->JSGenerator->storageFilePath());
-        }
-
-        return $result;
+        $this->casperJS->generate();
+        return $this->casperJS->exec($this->isDebug);
     }
 
     public function enableDebug()
     {
-        $this->enableDebug = true;
+        $this->isDebug = true;
         return $this;
     }
-
-//    /**
-//     * @ignore
-//     */
-//    public function withData(Array $data)
-//    {
-//        return $this;
-//    }
-//
-//    /**
-//     * @ignore
-//     */
-//    public function withHeader(Array $header)
-//    {
-//        return $this;
-//    }
-//
-//    /**
-//     * @ignore
-//     */
-//    public function withHeaders(Array $headers)
-//    {
-//        return $this;
-//    }
 }

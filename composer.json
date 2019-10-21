@@ -18,7 +18,7 @@
     "homepage": "https://github.com/denis-kisel/php-casper-curl",
     "require": {
         "php": ">=7.2",
-        "illuminate/support": ">=5.0"
+        "ext-json": "*"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",

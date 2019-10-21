@@ -10,7 +10,8 @@ casper.options.viewportSize = {width: 1920, height: 1080};
 
 casper.start('{url}', {
         method: '{httpMethod}',
-        data: {data}
+        {data}
+        {headers}
     }
 );
 

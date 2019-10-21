@@ -3,7 +3,7 @@
 
 namespace DenisKisel\CasperCURL\Classes;
 
-class CasperCURLBuilder
+class Builder
 {
     /**
      * @var null|Proxy
@@ -44,6 +44,12 @@ class CasperCURLBuilder
     public function withData(Array $data)
     {
         $this->casperJS->setData($data);
+        return $this;
+    }
+
+    public function withHeaders(Array $data)
+    {
+        $this->casperJS->setHeaders($data);
         return $this;
     }
 

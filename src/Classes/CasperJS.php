@@ -11,6 +11,7 @@ class CasperJS
     protected $url = null;
     protected $httpMethod = null;
     protected $data = null;
+    protected $headers = null;
 
     /** @var StubJSCopyist */
     protected $stubJSCopyist = null;
@@ -31,7 +32,12 @@ class CasperJS
 
     public function setData($data)
     {
-        $this->data = json_encode($data);
+        $this->data = $data;
+    }
+
+    public function setHeaders($headers)
+    {
+        $this->headers = $headers;
     }
 
     public function getHttpMethod()
@@ -44,9 +50,25 @@ class CasperJS
         return $this->url;
     }
 
-    public function getData()
+    public function renderData()
     {
-        return $this->data;
+        if (is_null($this->data)) {
+            return '';
+        }
+
+        $jsonData = json_encode($this->data);
+        return "data: {$jsonData},";
+    }
+
+    public function renderHeaders()
+    {
+
+        if (is_null($this->headers)) {
+            return '';
+        }
+
+        $jsonHeaders = json_encode($this->headers, JSON_UNESCAPED_SLASHES);
+        return "headers: {$jsonHeaders}";
     }
 
     public function generate()
@@ -55,7 +77,8 @@ class CasperJS
         $content = file_get_contents($this->stubJSCopyist->storageFilePath());
         $content = str_replace('{url}', $this->getUrl(), $content);
         $content = str_replace('{httpMethod}', $this->getHttpMethod(), $content);
-        $content = str_replace('{data}', $this->getData(), $content);
+        $content = str_replace('{data}', $this->renderData(), $content);
+        $content = str_replace('{headers}', $this->renderHeaders(), $content);
         $content = str_replace('{options}', '', $content);
         $content = str_replace('{body}', '', $content);
 

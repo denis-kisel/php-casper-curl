@@ -44,13 +44,13 @@ class Builder
 
     public function withHeaders(Array $data)
     {
-        $this->casperJS->setHeaders($data);
+        $this->casperJS->addHeaders($data);
         return $this;
     }
 
     public function userAgent(String $agent)
     {
-        $this->casperJS->setHeaders(['User-Agent' => $agent]);
+        $this->casperJS->addHeaders(['User-Agent' => $agent]);
         return $this;
     }
 
@@ -65,6 +65,16 @@ class Builder
         }
 
         $this->casperJS->cliOptionRegister->add($options);
+        return $this;
+    }
+
+    public function withCookie($fileName, $dir = '')
+    {
+        $filePath = $dir . $fileName;
+        if (empty($dir)) {
+            $filePath = Config::$storageDir . $fileName;
+        }
+        $this->casperJS->cliOptionRegister->add(['cookies-file' => $filePath]);
         return $this;
     }
 

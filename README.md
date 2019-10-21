@@ -90,7 +90,7 @@ $response = \DenisKisel\CasperCURL\CasperCURL::to('https://google.com')
 ```
 
 ### Use Cookies
-withCookie($isEnable \[, $filePath])  
+withCookie($fileName, \[, $dir])  
 By default cookie is `disabled`.  
 By default cookies file is stored in storage dir.
 

@@ -12,6 +12,7 @@ class CasperJS
     protected $httpMethod = null;
     protected $data = null;
     protected $headers = [];
+    protected $options = [];
 
     /** @var StubJSCopyist */
     protected $stubJSCopyist = null;
@@ -42,9 +43,14 @@ class CasperJS
         $this->data = $data;
     }
 
-    public function setHeaders($headers)
+    public function addHeaders($headers)
     {
-        array_push($this->headers, $headers);
+        array_merge($this->headers, $headers);
+    }
+
+    public function addOptions($options)
+    {
+        array_merge($this->options, $options);
     }
 
     public function getHttpMethod()
@@ -76,6 +82,11 @@ class CasperJS
 
         $jsonHeaders = json_encode($this->headers, JSON_UNESCAPED_SLASHES);
         return "headers: {$jsonHeaders}";
+    }
+
+    public function renderOptions()
+    {
+
     }
 
     public function generate()

@@ -6,11 +6,6 @@ namespace DenisKisel\CasperCURL\Classes;
 class Builder
 {
     /**
-     * @var null|Proxy
-     */
-    public $proxy = null;
-
-    /**
      * @var null|CasperJS
      */
     protected $casperJS = null;
@@ -59,9 +54,17 @@ class Builder
         return $this;
     }
 
-    public function withProxy($ip, $port, $schema = 'http://', $login = null, $password = null)
+    public function withProxy($ip, $port, $schema = 'http', $login = null, $password = null)
     {
-        $this->proxy = new Proxy($ip, $port, $schema, $login, $password);
+        Proxy::validateSchema($schema);
+        $options['proxy'] = "{$ip}:{$port}";
+        $options['proxy-type'] = $schema;
+
+        if (!empty($login) && !empty($password)) {
+            $options['proxy-auth'] = "{$login}:{$password}";
+        }
+
+        $this->casperJS->cliOptionRegister->add($options);
         return $this;
     }
 

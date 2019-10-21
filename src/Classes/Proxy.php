@@ -4,20 +4,27 @@
 namespace DenisKisel\CasperCURL\Classes;
 
 
+use DenisKisel\CasperCURL\Exceptions\CasperCURLException;
+
 class Proxy
 {
-    public $ip = null;
-    public $port = null;
-    public $schema = 'http';
-    public $login = null;
-    public $password = null;
+    const HTTP_SCHEMA = 'http';
+    const SOCKS_SCHEMA = 'socks5';
+    const NONE_SCHEMA = 'none';
 
-    public function __construct($ip, $port, $schema = 'http', $login = null, $password = null)
+    public static function validateSchema($schema)
     {
-        $this->ip = $ip;
-        $this->port = $port;
-        $this->schema = $schema;
-        $this->login = $login;
-        $this->password = $password;
+        if (!in_array($schema, self::schemaTypes())) {
+            throw new CasperCURLException("This schema [$schema] is not available!");
+        }
+    }
+
+    public static function schemaTypes()
+    {
+        return [
+            self::HTTP_SCHEMA,
+            self::SOCKS_SCHEMA,
+            self::NONE_SCHEMA
+        ];
     }
 }

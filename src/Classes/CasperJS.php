@@ -16,11 +16,18 @@ class CasperJS
     /** @var StubJSCopyist */
     protected $stubJSCopyist = null;
 
+    /** @var Proxy */
+    protected $proxy = null;
+
+    /** @var CliOptionRegister */
+    public $cliOptionRegister = null;
+
     public function __construct($url)
     {
         $this->url = $url;
         $this->httpMethod = HttpMethod::DEFAULT;
         $this->stubJSCopyist = new StubJSCopyist(Config::$storageDir);
+        $this->cliOptionRegister = new CliOptionRegister();
     }
 
 
@@ -89,7 +96,7 @@ class CasperJS
     public function exec($isDebug = false)
     {
         $filePath = Config::$storageDir . '/' . StringHelper::random(32);
-        exec('casperjs ' . $this->stubJSCopyist->storageFilePath() . ' >> ' . $filePath);
+        exec("casperjs {$this->cliOptionRegister->render()} {$this->stubJSCopyist->storageFilePath()} >> {$filePath}");
         $result = file_get_contents($filePath);
 
         if (!$isDebug) {

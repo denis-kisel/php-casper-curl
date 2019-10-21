@@ -5,10 +5,8 @@ namespace DenisKisel\CasperCURL\Classes;
 
 use DenisKisel\CasperCURL\Helpers\StringHelper;
 
-class Builder
+class CasperCURLBuilder
 {
-    public $url = null;
-    public $httpMethod = 'GET';
     protected $storagePath = null;
 
     /**
@@ -22,24 +20,36 @@ class Builder
     protected $JSGenerator = null;
 
     /**
+     * @var null|CasperJSBuilder
+     */
+    protected $casperJSBuilder = null;
+
+    /**
      * @var null|WindowSize
      */
     public $windowSize = null;
 
+    protected $enableDebug = false;
+
 
     public function __construct($storagePath)
     {
-        $this->JSGenerator = new JSGenerator($storagePath, $this);
+        $this->JSGenerator = new JSGenerator($storagePath);
         $this->windowSize = new WindowSize();
         $this->storagePath = $storagePath;
     }
 
     public function to($url)
     {
-        $this->url = $url;
+        $this->casperJSBuilder = new CasperJSBuilder($url);
         return $this;
     }
 
+    public function method($method)
+    {
+        $this->casperJSBuilder->setHttpMethod($method);
+        return $this;
+    }
 
     public function withProxy($ip, $port, $schema = 'http://', $login = null, $password = null)
     {
@@ -56,16 +66,23 @@ class Builder
 
     public function request()
     {
-        $this->JSGenerator->generate();
-
+        $this->JSGenerator->generate($this->casperJSBuilder);
         $filePath = $this->storagePath . '/' . StringHelper::random(32);
         exec('casperjs ' . $this->JSGenerator->storageFilePath() . ' >> ' . $filePath);
         $result = file_get_contents($filePath);
 
-        unlink($filePath);
-        unlink($this->JSGenerator->storageFilePath());
+        if (!$this->enableDebug) {
+            unlink($filePath);
+            unlink($this->JSGenerator->storageFilePath());
+        }
 
         return $result;
+    }
+
+    public function enableDebug()
+    {
+        $this->enableDebug = true;
+        return $this;
     }
 
 //    /**

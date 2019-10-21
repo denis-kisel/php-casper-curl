@@ -2,17 +2,17 @@
 
 namespace DenisKisel\CasperCURL;
 
-use DenisKisel\CasperCURL\Classes\Builder;
+use DenisKisel\CasperCURL\Classes\CasperCURLBuilder;
 
 class LCasperCURL
 {
     /**
      * @param $url
-     * @return Builder
+     * @return CasperCURLBuilder
      */
     public static function to($url)
     {
-        $builder = new Builder(config('casper_curl.storage_path'));
+        $builder = new CasperCURLBuilder(config('casper_curl.storage_path'));
         return $builder->to($url);
     }
 }

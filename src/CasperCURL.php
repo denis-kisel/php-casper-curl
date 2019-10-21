@@ -2,7 +2,7 @@
 
 namespace DenisKisel\CasperCURL;
 
-use DenisKisel\CasperCURL\Classes\Builder;
+use DenisKisel\CasperCURL\Classes\CasperCURLBuilder;
 
 class CasperCURL
 {
@@ -15,11 +15,11 @@ class CasperCURL
 
     /**
      * @param $url
-     * @return Builder
+     * @return CasperCURLBuilder
      */
     public function to($url)
     {
-        $builder = new Builder($this->storagePath);
+        $builder = new CasperCURLBuilder($this->storagePath);
         return $builder->to($url);
     }
 }

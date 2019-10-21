@@ -13,12 +13,8 @@ class JSGenerator
     protected $storageFileTemplate = 'phantom-curl_{datetime}_{token}.js';
     protected $storageFileName = null;
 
-    /**
-     * @var null|Builder
-     */
-    protected $builder = null;
 
-    public function __construct($storageDirPath, $builder)
+    public function __construct($storageDirPath)
     {
         if (!is_dir($storageDirPath)) {
             mkdir($storageDirPath, '0777', true);
@@ -28,15 +24,15 @@ class JSGenerator
             throw new CasperCURLException("Storage dir is not created! [{$storageDirPath}]");
         }
         $this->storageDirPath = $storageDirPath;
-        $this->builder = $builder;
     }
 
-    public function generate()
+    public function generate(CasperJSBuilder $builder)
     {
         copy(__DIR__ . '/../../resources/stabs/casperjs.stub', $this->storageFilePath());
 
         $content = file_get_contents($this->storageFilePath());
-        $content = str_replace('{url}', $this->builder->url, $content);
+        $content = str_replace('{url}', $builder->getUrl(), $content);
+        $content = str_replace('{httpMethod}', $builder->getHttpMethod(), $content);
         $content = str_replace('{options}', '', $content);
         $content = str_replace('{body}', '', $content);
 

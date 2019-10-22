@@ -131,7 +131,7 @@ EOF;
 
     public function exec($isDebug = false)
     {
-        $filePath = Config::$storageDir . '/' . StringHelper::random(32);
+        $filePath = Config::$storageDir . '/' . time() . '_' . StringHelper::random() . '.html';
         exec("casperjs {$this->cliPhantomOptions->render()} {$this->stubJSCopyist->storageFilePath()} >> {$filePath}");
         $result = file_get_contents($filePath);
 

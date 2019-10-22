@@ -1,6 +1,6 @@
 <?php
 
-namespace DenisKisel\CasperCurl;
+namespace DenisKisel\CasperCURL;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {

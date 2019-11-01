@@ -100,7 +100,7 @@ By default cookies file is stored in storage dir.
 ```php
 $casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
 $response = $casperCURL->to('https://google.com')
-    ->withCookie(true)
+    ->withCookie('cookie.txt')
     ->request()
 ```
 

@@ -10,7 +10,10 @@ class ResponseFormat
     {
         preg_match('/\{STATUS:(.*):STATUS\}/m', $content, $matches);
         $status = $matches[1] ?? 0;
-        $content = str_replace($matches[0], '', $content);
+
+        if (!empty($matches[0])) {
+            $content = str_replace($matches[0], '', $content);
+        }
 
         $response = new \stdClass();
         $response->status = $status;

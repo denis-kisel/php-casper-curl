@@ -63,9 +63,9 @@ class Builder
 
     public function withCookie($fileName, $dir = '')
     {
-        $filePath = $dir . $fileName;
+        $filePath = $dir . '/' . $fileName;
         if (empty($dir)) {
-            $filePath = Config::$storageDir . $fileName;
+            $filePath = Config::$storageDir . '/' . $fileName;
         }
         $this->casperJS->cliPhantomOptions->add(['cookies-file' => $filePath]);
         return $this;

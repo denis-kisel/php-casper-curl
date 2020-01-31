@@ -8,6 +8,9 @@ Basics on [casperjs](https://casperjs.org/) / [phantomjs](https://phantomjs.org/
 ```bash
 npm install -g casperjs
 npm install -g phantomjs
+
+# If phantomjs is running with errors
+npm install -g phantomjs --ignore-scripts
 ```
 
 2 Install CasperCURL package
@@ -100,7 +103,7 @@ By default cookies file is stored in storage dir.
 ```php
 $casperCURL = new \DenisKisel\CasperCURL\CasperCURL($storageDir);
 $response = $casperCURL->to('https://google.com')
-    ->withCookie(true)
+    ->withCookie('cookie.txt')
     ->request()
 ```
 
